@@ -2,7 +2,6 @@ package org.firstinspires.ftc.teamcode.drivetrain
 
 import com.qualcomm.robotcore.eventloop.opmode.*
 import com.qualcomm.robotcore.hardware.*
-import java.lang.Exception
 
 @TeleOp(name = "DriveTrain Test")
 // @Disabled
@@ -11,6 +10,8 @@ class DriveTrain : LinearOpMode() {
     private lateinit var rightBackMotor: DcMotor
     private lateinit var rightFrontMotor: DcMotor
     private lateinit var leftFrontMotor: DcMotor
+
+    private val power = 0.5
 
     override fun runOpMode() {
 
@@ -25,10 +26,11 @@ class DriveTrain : LinearOpMode() {
 
         waitForStart()
 
-        leftBackMotor.power = 0.1
-
         while (opModeIsActive()){
-            sleep(1000)
+            if (gamepad1.dpad_up)
+                leftFrontMotor.power = 0.5
+            else
+                leftFrontMotor.power = 0.0
         }
     }
 
@@ -39,14 +41,14 @@ class DriveTrain : LinearOpMode() {
             rightFrontMotor = hardwareMap.dcMotor["rightFront"]
             leftFrontMotor = hardwareMap.dcMotor["leftFront"]
 
-            leftFrontMotor.direction = DcMotorSimple.Direction.FORWARD
-            rightFrontMotor.direction = DcMotorSimple.Direction.FORWARD
-            leftBackMotor.direction = DcMotorSimple.Direction.REVERSE
-            rightBackMotor.direction = DcMotorSimple.Direction.REVERSE
+            leftFrontMotor.direction = DcMotorSimple.Direction.REVERSE
+            rightFrontMotor.direction = DcMotorSimple.Direction.REVERSE
+            leftBackMotor.direction = DcMotorSimple.Direction.FORWARD
+            rightBackMotor.direction = DcMotorSimple.Direction.FORWARD
 
             return true
 
-        } catch (e: Exception) {
+        } catch (e: NullPointerException) {
             telemetry.addData("Exception", e)
             return false
         }
