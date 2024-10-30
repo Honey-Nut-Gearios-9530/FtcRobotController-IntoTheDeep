@@ -12,6 +12,25 @@ class DriveTrain : LinearOpMode() {
     private lateinit var rightFrontMotor: DcMotor
     private lateinit var leftFrontMotor: DcMotor
 
+    override fun runOpMode() {
+
+        if (!initMotors()) {
+            telemetry.addData("Motor Initialization", "Failed")
+            telemetry.update()
+            terminateOpModeNow()
+        } else {
+            telemetry.addData("Motor Initialization", "Success")
+            telemetry.update()
+        }
+
+        waitForStart()
+
+        leftBackMotor.power = 0.1
+
+        while (opModeIsActive()){
+            sleep(1000)
+        }
+    }
 
     private fun initMotors(): Boolean {
         try {
@@ -28,26 +47,8 @@ class DriveTrain : LinearOpMode() {
             return true
 
         } catch (e: Exception) {
-           telemetry.addData("Exception", e)
-           return false
-        }
-    }
-
-    override fun runOpMode() {
-
-        waitForStart()
-
-        if (!initMotors()) {
-            telemetry.addData("Motor Initialization", "Failed")
-            telemetry.update()
-            terminateOpModeNow()
-        } else {
-            telemetry.addData("Motor Initialization", "Success")
-            telemetry.update()
-        }
-
-        while (opModeIsActive()){
-            leftBackMotor.power = 0.1
+            telemetry.addData("Exception", e)
+            return false
         }
     }
 }
