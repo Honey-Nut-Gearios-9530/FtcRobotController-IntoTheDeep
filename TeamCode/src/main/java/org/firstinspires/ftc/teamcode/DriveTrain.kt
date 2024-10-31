@@ -1,9 +1,11 @@
-package org.firstinspires.ftc.teamcode.drivetrain
+package org.firstinspires.ftc.teamcode
 
 import com.qualcomm.robotcore.eventloop.opmode.*
 import com.qualcomm.robotcore.hardware.*
+import org.firstinspires.ftc.teamcode.modular.GamepadButton
+import org.firstinspires.ftc.teamcode.modular.MutableState
 
-@TeleOp(name = "DriveTrain Test")
+@TeleOp(name = "Lucas DriveTrain")
 // @Disabled
 class DriveTrain : LinearOpMode() {
     private lateinit var leftBackMotor: DcMotor
@@ -11,8 +13,10 @@ class DriveTrain : LinearOpMode() {
     private lateinit var rightFrontMotor: DcMotor
     private lateinit var leftFrontMotor: DcMotor
     private lateinit var allMotors: Array<DcMotor>
+    private lateinit var buttonA: GamepadButton
 
-    private val powerMultiplier = 0.75
+    private var powerMultiplier = MutableState(0.75)
+    private var highSpeed = true
 
     override fun runOpMode() {
 
@@ -25,19 +29,31 @@ class DriveTrain : LinearOpMode() {
             telemetry.update()
         }
 
+        buttonA = GamepadButton(gamepad1::a)
+
         waitForStart()
 
         while (opModeIsActive()) {
             val motorPower = arrayOf(
-                -gamepad1.left_stick_x - gamepad1.left_stick_y + gamepad1.right_stick_x,
-                gamepad1.left_stick_x - gamepad1.left_stick_y - gamepad1.right_stick_x,
                 gamepad1.left_stick_x - gamepad1.left_stick_y + gamepad1.right_stick_x,
                 -gamepad1.left_stick_x - gamepad1.left_stick_y - gamepad1.right_stick_x,
+                -gamepad1.left_stick_x - gamepad1.left_stick_y + gamepad1.right_stick_x,
+                gamepad1.left_stick_x - gamepad1.left_stick_y - gamepad1.right_stick_x,
             )
+
+            // Toggle speeds: untested
+            if (buttonA.canPress && buttonA.value){
+                when (highSpeed){
+                    true -> powerMultiplier.value *= 0.25
+                    false -> powerMultiplier.reset()
+                }
+                highSpeed = !highSpeed
+            }
 
             allMotors.forEachIndexed { i, m ->
                 m.power =
-                    (motorPower[i] * powerMultiplier).coerceIn(-powerMultiplier, powerMultiplier)
+                    (motorPower[i] * powerMultiplier.value)
+                        .coerceIn(-powerMultiplier.value, powerMultiplier.value)
             }
         }
     }
@@ -58,7 +74,7 @@ class DriveTrain : LinearOpMode() {
 
             return true
 
-        } catch (e: NullPointerException) {
+        } catch (e: Exception) {
             telemetry.addData("Exception", e)
             return false
         }
