@@ -12,7 +12,7 @@ class DriveTrain : LinearOpMode() {
     private lateinit var leftFrontMotor: DcMotor
     private lateinit var allMotors: Array<DcMotor>
 
-    private val powerMultiplier = 0.5
+    private val powerMultiplier = 0.75
 
     override fun runOpMode() {
 
@@ -27,14 +27,18 @@ class DriveTrain : LinearOpMode() {
 
         waitForStart()
 
-        while (opModeIsActive()){
+        while (opModeIsActive()) {
             val motorPower = arrayOf(
-                gamepad1.left_stick_x + gamepad1.left_stick_y + gamepad1.right_stick_x,
+                -gamepad1.left_stick_x - gamepad1.left_stick_y + gamepad1.right_stick_x,
                 gamepad1.left_stick_x - gamepad1.left_stick_y - gamepad1.right_stick_x,
                 gamepad1.left_stick_x - gamepad1.left_stick_y + gamepad1.right_stick_x,
-                gamepad1.left_stick_x + gamepad1.left_stick_y - gamepad1.right_stick_x,
+                -gamepad1.left_stick_x - gamepad1.left_stick_y - gamepad1.right_stick_x,
             )
-            allMotors.forEachIndexed {i, m -> m.power = motorPower[i] * powerMultiplier}
+
+            allMotors.forEachIndexed { i, m ->
+                m.power =
+                    (motorPower[i] * powerMultiplier).coerceIn(-powerMultiplier, powerMultiplier)
+            }
         }
     }
 
