@@ -10,8 +10,9 @@ class DriveTrain : LinearOpMode() {
     private lateinit var rightBackMotor: DcMotor
     private lateinit var rightFrontMotor: DcMotor
     private lateinit var leftFrontMotor: DcMotor
+    private lateinit var allMotors: Array<DcMotor>
 
-    private val power = 0.5
+    private val powerMultiplier = 0.5
 
     override fun runOpMode() {
 
@@ -27,10 +28,13 @@ class DriveTrain : LinearOpMode() {
         waitForStart()
 
         while (opModeIsActive()){
-            if (gamepad1.dpad_up)
-                leftFrontMotor.power = 0.5
-            else
-                leftFrontMotor.power = 0.0
+            val motorPower = arrayOf(
+                gamepad1.left_stick_x + gamepad1.left_stick_y + gamepad1.right_stick_x,
+                gamepad1.left_stick_x - gamepad1.left_stick_y - gamepad1.right_stick_x,
+                gamepad1.left_stick_x - gamepad1.left_stick_y + gamepad1.right_stick_x,
+                gamepad1.left_stick_x + gamepad1.left_stick_y - gamepad1.right_stick_x,
+            )
+            allMotors.forEachIndexed {i, m -> m.power = motorPower[i] * powerMultiplier}
         }
     }
 
@@ -42,9 +46,11 @@ class DriveTrain : LinearOpMode() {
             leftFrontMotor = hardwareMap.dcMotor["leftFront"]
 
             leftFrontMotor.direction = DcMotorSimple.Direction.REVERSE
-            rightFrontMotor.direction = DcMotorSimple.Direction.REVERSE
-            leftBackMotor.direction = DcMotorSimple.Direction.FORWARD
+            rightFrontMotor.direction = DcMotorSimple.Direction.FORWARD
+            leftBackMotor.direction = DcMotorSimple.Direction.REVERSE
             rightBackMotor.direction = DcMotorSimple.Direction.FORWARD
+
+            allMotors = arrayOf(leftFrontMotor, rightFrontMotor, leftBackMotor, rightBackMotor)
 
             return true
 
