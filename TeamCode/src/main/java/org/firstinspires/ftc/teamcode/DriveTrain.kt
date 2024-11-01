@@ -2,8 +2,7 @@ package org.firstinspires.ftc.teamcode
 
 import com.qualcomm.robotcore.eventloop.opmode.*
 import com.qualcomm.robotcore.hardware.*
-import org.firstinspires.ftc.teamcode.modular.GamepadButton
-import org.firstinspires.ftc.teamcode.modular.MutableState
+import org.firstinspires.ftc.teamcode.modular.ResettableState
 
 @TeleOp(name = "Lucas DriveTrain")
 // @Disabled
@@ -13,10 +12,10 @@ class DriveTrain : LinearOpMode() {
     private lateinit var rightFrontMotor: DcMotor
     private lateinit var leftFrontMotor: DcMotor
     private lateinit var allMotors: Array<DcMotor>
-    private lateinit var buttonA: GamepadButton
-
-    private var powerMultiplier = MutableState(0.75)
+    private var powerMultiplier = ResettableState(0.75)
     private var highSpeed = true
+    private val pastGamepadState = Gamepad()
+    private val currentGamepadState = Gamepad()
 
     override fun runOpMode() {
 
@@ -29,20 +28,21 @@ class DriveTrain : LinearOpMode() {
             telemetry.update()
         }
 
-        buttonA = GamepadButton(gamepad1::a)
-
         waitForStart()
 
         while (opModeIsActive()) {
+            pastGamepadState.copy(currentGamepadState)
+            currentGamepadState.copy(gamepad1)
+
             val motorPower = arrayOf(
-                gamepad1.left_stick_x - gamepad1.left_stick_y + gamepad1.right_stick_x,
-                -gamepad1.left_stick_x - gamepad1.left_stick_y - gamepad1.right_stick_x,
-                -gamepad1.left_stick_x - gamepad1.left_stick_y + gamepad1.right_stick_x,
-                gamepad1.left_stick_x - gamepad1.left_stick_y - gamepad1.right_stick_x,
+                currentGamepadState.left_stick_x - currentGamepadState.left_stick_y + currentGamepadState.right_stick_x,
+                -currentGamepadState.left_stick_x - currentGamepadState.left_stick_y - currentGamepadState.right_stick_x,
+                -currentGamepadState.left_stick_x - currentGamepadState.left_stick_y + currentGamepadState.right_stick_x,
+                currentGamepadState.left_stick_x - currentGamepadState.left_stick_y - currentGamepadState.right_stick_x,
             )
 
             // Toggle speeds: untested
-            if (buttonA.canPress && buttonA.value){
+            if (currentGamepadState.a && !pastGamepadState.a){
                 when (highSpeed){
                     true -> powerMultiplier.value *= 0.25
                     false -> powerMultiplier.reset()
