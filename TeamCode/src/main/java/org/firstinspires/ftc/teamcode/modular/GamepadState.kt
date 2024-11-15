@@ -2,8 +2,7 @@ package org.firstinspires.ftc.teamcode.modular
 
 import com.qualcomm.robotcore.hardware.Gamepad
 
-class GamepadState(private val gamepad: Gamepad)
-{
+class GamepadState(private val gamepad: Gamepad) {
     val current = Gamepad()
     val past = Gamepad()
 
