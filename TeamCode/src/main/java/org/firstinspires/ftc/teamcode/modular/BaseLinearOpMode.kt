@@ -13,17 +13,17 @@ abstract class BaseLinearOpMode : LinearOpMode() {
 
     protected fun initDriveTrain() {
         try {
-            leftBackMotor = hardwareMap.dcMotor["leftBack"]
-            rightBackMotor = hardwareMap.dcMotor["rightBack"]
-            rightFrontMotor = hardwareMap.dcMotor["rightFront"]
-            leftFrontMotor = hardwareMap.dcMotor["leftFront"]
+            this.leftBackMotor = this.hardwareMap.dcMotor["leftBack"]
+            this.rightBackMotor = this.hardwareMap.dcMotor["rightBack"]
+            this.rightFrontMotor = this.hardwareMap.dcMotor["rightFront"]
+            this.leftFrontMotor = this.hardwareMap.dcMotor["leftFront"]
 
-            leftFrontMotor.direction = DcMotorSimple.Direction.REVERSE
-            rightFrontMotor.direction = DcMotorSimple.Direction.FORWARD
-            leftBackMotor.direction = DcMotorSimple.Direction.REVERSE
-            rightBackMotor.direction = DcMotorSimple.Direction.FORWARD
+            this.leftFrontMotor.direction = DcMotorSimple.Direction.REVERSE
+            this.rightFrontMotor.direction = DcMotorSimple.Direction.FORWARD
+            this.leftBackMotor.direction = DcMotorSimple.Direction.REVERSE
+            this.rightBackMotor.direction = DcMotorSimple.Direction.FORWARD
 
-            allMotors = arrayOf(leftFrontMotor, rightFrontMotor, leftBackMotor, rightBackMotor)
+            this.allMotors = arrayOf(leftFrontMotor, rightFrontMotor, leftBackMotor, rightBackMotor)
 
             telemetry.addData("Drive Train Initialization", "Success")
 

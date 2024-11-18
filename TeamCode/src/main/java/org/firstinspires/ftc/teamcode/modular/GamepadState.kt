@@ -7,7 +7,7 @@ class GamepadState(private val gamepad: Gamepad) {
     val past = Gamepad()
 
     fun cycle() {
-        past.copy(current)
-        current.copy(gamepad)
+        this.past.copy(this.current)
+        this.current.copy(this.gamepad)
     }
 }
