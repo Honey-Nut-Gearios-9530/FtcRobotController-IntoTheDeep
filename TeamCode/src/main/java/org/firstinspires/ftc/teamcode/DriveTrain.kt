@@ -5,10 +5,11 @@ import com.qualcomm.robotcore.hardware.Gamepad
 import org.firstinspires.ftc.teamcode.modular.*
 
 @TeleOp(name = "DriveTrain")
-// @Disabled
+
 class DriveTrain : BaseLinearOpMode() {
     private var power = ToggleableState(1.0, 0.25)
     private lateinit var gp1: GamepadState
+
 
     override fun runOpMode() {/* Initialization */
         gp1 = GamepadState(gamepad1)
@@ -26,10 +27,15 @@ class DriveTrain : BaseLinearOpMode() {
             this.gp1.cycle()
 
             val motorPower = arrayOf(
-                this.gp1.current.left_stick_x - this.gp1.current.left_stick_y + this.gp1.current.right_stick_x,
-                -this.gp1.current.left_stick_x - this.gp1.current.left_stick_y - this.gp1.current.right_stick_x,
-                -this.gp1.current.left_stick_x - this.gp1.current.left_stick_y + this.gp1.current.right_stick_x,
-                this.gp1.current.left_stick_x - this.gp1.current.left_stick_y - this.gp1.current.right_stick_x,
+               // this.gp1.current.left_stick_x - this.gp1.current.left_stick_y + this.gp1.current.right_stick_x,
+               // -this.gp1.current.left_stick_x - this.gp1.current.left_stick_y - this.gp1.current.right_stick_x,
+                //-this.gp1.current.left_stick_x - this.gp1.current.left_stick_y + this.gp1.current.right_stick_x,
+                //this.gp1.current.left_stick_x - this.gp1.current.left_stick_y - this.gp1.current.right_stick_x,
+
+                this.gp1.current.left_stick_x - this.gp1.current.left_stick_y - this.gp1.current.left_trigger + this.gp1.current.right_trigger,
+                -this.gp1.current.left_stick_x - this.gp1.current.left_stick_y + this.gp1.current.left_trigger - this.gp1.current.right_trigger,
+                -this.gp1.current.left_stick_x - this.gp1.current.left_stick_y -this.gp1.current.left_trigger + this.gp1.current.right_trigger,
+                this.gp1.current.left_stick_x - this.gp1.current.left_stick_y +  this.gp1.current.left_trigger - this.gp1.current.right_trigger,
             )
 
             toggleButtonMap.forEach { it.key.ifIsToggled(it.value) }
