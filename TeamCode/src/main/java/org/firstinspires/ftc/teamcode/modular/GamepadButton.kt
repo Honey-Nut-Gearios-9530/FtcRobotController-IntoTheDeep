@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.modular
 
 import kotlin.reflect.KCallable
 
+@Suppress("MemberVisibilityCanBePrivate")
 class GamepadButton(private val gamepad: GamepadState, private val button: KCallable<Boolean>) {
 
     val isToggled: Boolean
