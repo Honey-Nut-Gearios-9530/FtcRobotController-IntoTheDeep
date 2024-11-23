@@ -4,6 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode
 import com.qualcomm.robotcore.hardware.DcMotor
 import com.qualcomm.robotcore.hardware.DcMotorSimple
 
+@Suppress("MemberVisibilityCanBePrivate")
 abstract class BaseLinearOpMode : LinearOpMode() {
     protected lateinit var leftBackMotor: DcMotor
     protected lateinit var rightBackMotor: DcMotor
