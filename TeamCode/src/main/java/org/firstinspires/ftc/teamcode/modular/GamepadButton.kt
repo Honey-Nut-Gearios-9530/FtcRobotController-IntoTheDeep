@@ -11,11 +11,11 @@ class GamepadButton(private val gamepad: GamepadState, private val button: KCall
     val isPressed: Boolean
         get() = this.button.call(this.gamepad.current)
 
-    fun ifIsToggled(block: () -> Unit) {
+    inline fun ifIsToggled(block: () -> Unit) {
         if (this.isToggled) block()
     }
 
-    fun ifIsPressed(block: () -> Unit) {
+    inline fun ifIsPressed(block: () -> Unit) {
         if (this.isPressed) block()
     }
 }
