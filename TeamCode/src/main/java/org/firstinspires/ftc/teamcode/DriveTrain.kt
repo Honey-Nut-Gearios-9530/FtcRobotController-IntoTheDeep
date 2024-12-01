@@ -7,7 +7,7 @@ import org.firstinspires.ftc.teamcode.modular.*
 @TeleOp(name = "DriveTrain")
 
 class DriveTrain : BaseLinearOpMode() {
-    private var power = ToggleableState(1., 0.25)
+    private var power = ToggleableState(1, 0.25)
     private lateinit var gp1: GamepadState
 
 
