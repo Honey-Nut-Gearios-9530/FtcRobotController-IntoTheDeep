@@ -8,7 +8,7 @@ import org.firstinspires.ftc.teamcode.modular.GamepadState
 import org.firstinspires.ftc.teamcode.modular.ToggleableState
 import kotlin.math.abs
 
-@TeleOp(name = "autoDriveTrain")
+@TeleOp(name = "Drive Train")
 
 class DriveTrain : BaseLinearOpMode() {
     // kotlin does not do numeric type promotion, if the 3rd arg is just "1" than T cannot be inferred
