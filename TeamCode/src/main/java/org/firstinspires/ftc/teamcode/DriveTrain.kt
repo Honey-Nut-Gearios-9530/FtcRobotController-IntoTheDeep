@@ -8,16 +8,17 @@ import org.firstinspires.ftc.teamcode.modular.GamepadState
 import org.firstinspires.ftc.teamcode.modular.ToggleableState
 import kotlin.math.abs
 
-@TeleOp(name = "autoDriveTrain")
+@TeleOp(name = "Drive Train")
 
 class DriveTrain : BaseLinearOpMode() {
     // kotlin does not do numeric type promotion, if the 3rd arg is just "1" than T cannot be inferred
     private var power = ToggleableState(2, 0.33, 0.67, 1.0)
+
     private lateinit var gp1: GamepadState
-    private var leftTurn = this.gp1.current.left_trigger
-    private var rightTurn = this.gp1.current.right_trigger
-    private var forwardMotion = this.gp1.current.left_stick_y
-    private var crabMotion = this.gp1.current.left_stick_x
+    private var leftTurn = this.gamepad1.left_trigger
+    private var rightTurn = this.gamepad1.right_trigger
+    private var forwardMotion = this.gamepad1.left_stick_y
+    private var crabMotion = this.gamepad1.left_stick_x
     private var amr = 0 // no idea
 
     private fun update(){
@@ -30,12 +31,12 @@ class DriveTrain : BaseLinearOpMode() {
 
     override fun runOpMode() {/* Initialization */
         telemetry.msTransmissionInterval = 100
-        gp1 = GamepadState(gamepad1)
+
 
 
         val toggleButtonMap = mapOf(
-            GamepadButton(gp1, Gamepad::left_bumper) to power::left,
-            GamepadButton(gp1, Gamepad::right_bumper) to power::right
+            GamepadButton(GamepadState(gamepad1), Gamepad::left_bumper) to power::left,
+            GamepadButton(GamepadState(gamepad1), Gamepad::right_bumper) to power::right
         )
 
         this.initDriveTrain()
@@ -44,7 +45,7 @@ class DriveTrain : BaseLinearOpMode() {
         this.waitForStart()
 
         while (this.opModeIsActive()) {
-            this.gp1.cycle()
+            //this.gp1.cycle()
             update()
 
             toggleButtonMap.forEach { it.key.ifIsToggled(it.value) }
