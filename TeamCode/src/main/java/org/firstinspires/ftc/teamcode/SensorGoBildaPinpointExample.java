@@ -64,7 +64,7 @@ public class SensorGoBildaPinpointExample extends LinearOpMode {
 
     GoBildaPinpointDriver odo; // Declare OpMode member for the Odometry Computer
 
-    double oldTime = 0;
+    double oldTime = 0;// TOD0 fix varile name
 
 
     @Override
