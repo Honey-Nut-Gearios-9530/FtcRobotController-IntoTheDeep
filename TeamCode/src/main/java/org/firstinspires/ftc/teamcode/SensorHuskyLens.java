@@ -59,6 +59,15 @@ import java.util.concurrent.TimeUnit;
  * Use Android Studio to Copy this Class, and Paste it into your team's code folder with a new name.
  * Remove or comment out the @Disabled line to add this OpMode to the Driver Station OpMode list
  */
+
+/*
+    this op mode is writen of the assumtion that the cammra will looking at the ground
+    the HuckyLence is will see the corled bar and think it is a game place
+
+    - a wild Caden
+
+
+ */
 @TeleOp(name = "Sensor: HuskyLens", group = "Sensor")
 @Disabled
 public class SensorHuskyLens extends LinearOpMode {
@@ -113,7 +122,7 @@ public class SensorHuskyLens extends LinearOpMode {
          *
          * Other algorithm choices for FTC might be: OBJECT_RECOGNITION, COLOR_RECOGNITION or OBJECT_CLASSIFICATION.
          */
-        huskyLens.selectAlgorithm(HuskyLens.Algorithm.TAG_RECOGNITION);
+        huskyLens.selectAlgorithm(HuskyLens.Algorithm.COLOR_RECOGNITION);//
 
         telemetry.update();
         waitForStart();

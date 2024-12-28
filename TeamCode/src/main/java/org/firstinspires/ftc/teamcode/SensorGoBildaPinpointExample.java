@@ -57,6 +57,18 @@ For support, contact tech@gobilda.com
 -Ethan Doak
  */
 
+/*
+    this is the goblida example code with the vaulues found by dr.willson
+    this code is not proberly tested and should not be trusted
+    to view the blocks code open the wife dirrect or view it on classroom
+
+    unless otherwise noted the odmitly system works in mm
+
+    their are also diffent vaules for the test bed and main robot, the code is configerd for the
+    main robot
+
+ */
+
 @TeleOp(name="goBILDA® PinPoint Odometry Example", group="Linear OpMode")
 //@Disabled
 
@@ -73,7 +85,7 @@ public class SensorGoBildaPinpointExample extends LinearOpMode {
         // Initialize the hardware variables. Note that the strings used here must correspond
         // to the names assigned during the robot configuration step on the DS or RC devices.
 
-        odo = hardwareMap.get(GoBildaPinpointDriver.class,"odo");
+        odo = hardwareMap.get(GoBildaPinpointDriver.class,"odometry");
 
         /*
         Set the odometry pod positions relative to the point that the odometry computer tracks around.
@@ -83,7 +95,9 @@ public class SensorGoBildaPinpointExample extends LinearOpMode {
         the tracking point the Y (strafe) odometry pod is. forward of center is a positive number,
         backwards is a negative number.
          */
-        odo.setOffsets(-84.0, -168.0); //these are tuned for 3110-0002-0001 Product Insight #1
+
+        // TODO ask if x-pod offset is to the left or right
+        odo.setOffsets(95, 0); //these are tuned for as per Dr.Willson's specs
 
         /*
         Set the kind of pods used by your robot. If you're using goBILDA odometry pods, select either
@@ -91,8 +105,14 @@ public class SensorGoBildaPinpointExample extends LinearOpMode {
         If you're using another kind of odometry pod, uncomment setEncoderResolution and input the
         number of ticks per mm of your odometry pod.
          */
-        odo.setEncoderResolution(GoBildaPinpointDriver.GoBildaOdometryPods.goBILDA_4_BAR_POD);
-        //odo.setEncoderResolution(13.26291192);
+
+        /*
+        the encoder resolution for the test bed is 13.26291192 mm
+        the resolution for the main robot is 37.25135125
+         */
+        odo.setEncoderResolution(37.25135125); //mm
+
+
 
 
         /*
@@ -100,7 +120,9 @@ public class SensorGoBildaPinpointExample extends LinearOpMode {
         increase when you move the robot forward. And the Y (strafe) pod should increase when
         you move the robot to the left.
          */
-        odo.setEncoderDirections(GoBildaPinpointDriver.EncoderDirection.FORWARD, GoBildaPinpointDriver.EncoderDirection.FORWARD);
+
+
+        odo.setEncoderDirections(GoBildaPinpointDriver.EncoderDirection.REVERSED, GoBildaPinpointDriver.EncoderDirection.FORWARD);
 
 
         /*
