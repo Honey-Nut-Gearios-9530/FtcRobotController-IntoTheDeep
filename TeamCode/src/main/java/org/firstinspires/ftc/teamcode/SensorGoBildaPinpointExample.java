@@ -74,7 +74,7 @@ For support, contact tech@gobilda.com
 
 public class SensorGoBildaPinpointExample extends LinearOpMode {
 
-    GoBildaPinpointDriver odo; // Declare OpMode member for the Odometry Computer
+    GoBildaPinpointDriver odomity; // Declare OpMode member for the Odometry Computer
 
     double oldTime = 0;// TOD0 fix varile name
 
@@ -85,7 +85,7 @@ public class SensorGoBildaPinpointExample extends LinearOpMode {
         // Initialize the hardware variables. Note that the strings used here must correspond
         // to the names assigned during the robot configuration step on the DS or RC devices.
 
-        odo = hardwareMap.get(GoBildaPinpointDriver.class,"odometry");
+        odomity = hardwareMap.get(GoBildaPinpointDriver.class,"odometry");
 
         /*
         Set the odometry pod positions relative to the point that the odometry computer tracks around.
@@ -97,7 +97,7 @@ public class SensorGoBildaPinpointExample extends LinearOpMode {
          */
 
         // TODO ask if x-pod offset is to the left or right
-        odo.setOffsets(95, 0); //these are tuned for as per Dr.Willson's specs
+        odomity.setOffsets(95, 0); //these are tuned for as per Dr.Willson's specs
 
         /*
         Set the kind of pods used by your robot. If you're using goBILDA odometry pods, select either
@@ -110,7 +110,7 @@ public class SensorGoBildaPinpointExample extends LinearOpMode {
         the encoder resolution for the test bed is 13.26291192 mm
         the resolution for the main robot is 37.25135125
          */
-        odo.setEncoderResolution(37.25135125); //mm
+        odomity.setEncoderResolution(37.25135125); //mm
 
 
 
@@ -122,7 +122,7 @@ public class SensorGoBildaPinpointExample extends LinearOpMode {
          */
 
 
-        odo.setEncoderDirections(GoBildaPinpointDriver.EncoderDirection.REVERSED, GoBildaPinpointDriver.EncoderDirection.FORWARD);
+        odomity.setEncoderDirections(GoBildaPinpointDriver.EncoderDirection.REVERSED, GoBildaPinpointDriver.EncoderDirection.FORWARD);
 
 
         /*
@@ -133,14 +133,14 @@ public class SensorGoBildaPinpointExample extends LinearOpMode {
         This is recommended before you run your autonomous, as a bad initial calibration can cause
         an incorrect starting value for x, y, and heading.
          */
-        //odo.recalibrateIMU();
-        odo.resetPosAndIMU();
+        //odomity.recalibrateIMU();
+        odomity.resetPosAndIMU();
 
         telemetry.addData("Status", "Initialized");
-        telemetry.addData("X offset", odo.getXOffset());
-        telemetry.addData("Y offset", odo.getYOffset());
-        telemetry.addData("Device Version Number:", odo.getDeviceVersion());
-        telemetry.addData("Device Scalar", odo.getYawScalar());
+        telemetry.addData("X offset", odomity.getXOffset());
+        telemetry.addData("Y offset", odomity.getYOffset());
+        telemetry.addData("Device Version Number:", odomity.getDeviceVersion());
+        telemetry.addData("Device Scalar", odomity.getYawScalar());
         telemetry.update();
 
         // Wait for the game to start (driver presses START)
@@ -155,21 +155,21 @@ public class SensorGoBildaPinpointExample extends LinearOpMode {
             Request an update from the Pinpoint odometry computer. This checks almost all outputs
             from the device in a single I2C read.
              */
-            odo.update();
+            odomity.update();
 
             /*
             Optionally, you can update only the heading of the device. This takes less time to read, but will not
             pull any other data. Only the heading (which you can pull with getHeading() or in getPosition().
              */
-            //odo.update(GoBildaPinpointDriver.readData.ONLY_UPDATE_HEADING);
+            //odomity.update(GoBildaPinpointDriver.readData.ONLY_UPDATE_HEADING);
 
 
             if (gamepad1.a){
-                odo.resetPosAndIMU(); //resets the position to 0 and recalibrates the IMU
+                odomity.resetPosAndIMU(); //resets the position to 0 and recalibrates the IMU
             }
 
             if (gamepad1.b){
-                odo.recalibrateIMU(); //recalibrates the IMU without resetting position
+                odomity.recalibrateIMU(); //recalibrates the IMU without resetting position
             }
 
             /*
@@ -187,14 +187,14 @@ public class SensorGoBildaPinpointExample extends LinearOpMode {
             /*
             gets the current Position (x & y in mm, and heading in degrees) of the robot, and prints it.
              */
-            Pose2D pos = odo.getPosition();
+            Pose2D pos = odomity.getPosition();
             String data = String.format(Locale.US, "{X: %.3f, Y: %.3f, H: %.3f}", pos.getX(DistanceUnit.MM), pos.getY(DistanceUnit.MM), pos.getHeading(AngleUnit.DEGREES));
             telemetry.addData("Position", data);
 
             /*
             gets the current Velocity (x & y in mm/sec and heading in degrees/sec) and prints it.
              */
-            Pose2D vel = odo.getVelocity();
+            Pose2D vel = odomity.getVelocity();
             String velocity = String.format(Locale.US,"{XVel: %.3f, YVel: %.3f, HVel: %.3f}", vel.getX(DistanceUnit.MM), vel.getY(DistanceUnit.MM), vel.getHeading(AngleUnit.DEGREES));
             telemetry.addData("Velocity", velocity);
 
@@ -208,9 +208,9 @@ public class SensorGoBildaPinpointExample extends LinearOpMode {
             FAULT_X_POD_NOT_DETECTED - The device does not detect an X pod plugged in
             FAULT_Y_POD_NOT_DETECTED - The device does not detect a Y pod plugged in
             */
-            telemetry.addData("Status", odo.getDeviceStatus());
+            telemetry.addData("Status", odomity.getDeviceStatus());
 
-            telemetry.addData("Pinpoint Frequency", odo.getFrequency()); //prints/gets the current refresh rate of the Pinpoint
+            telemetry.addData("Pinpoint Frequency", odomity.getFrequency()); //prints/gets the current refresh rate of the Pinpoint
 
             telemetry.addData("REV Hub Frequency: ", frequency); //prints the control system refresh rate
             telemetry.update();
