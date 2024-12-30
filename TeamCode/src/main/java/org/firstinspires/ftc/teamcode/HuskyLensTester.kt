@@ -11,7 +11,7 @@ import org.firstinspires.ftc.teamcode.modular.GamepadState
 import java.util.concurrent.TimeUnit
 
 /**
- * Sample opmode (and reference implementation)for testing out HuskeyLens
+ * Sample opmode (and reference implementation) for testing out HuskeyLens
  * Requires HuskeyLens (duh), and optionally controller for switching algorithms.
  * Button mapping:
  * +=============+============+=======================+
