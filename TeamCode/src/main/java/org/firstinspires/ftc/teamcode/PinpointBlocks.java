@@ -20,7 +20,7 @@
  *   SOFTWARE.
  */
 
-package org.firstinspires.ftc.teamcode.modular;
+package org.firstinspires.ftc.teamcode;
 
 import org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion;
 import org.firstinspires.ftc.robotcore.external.ExportToBlocks;
@@ -90,7 +90,7 @@ public class PinpointBlocks extends BlocksOpModeCompanion {
         }
     }
 
-    @ExportToBlocks(
+    @ExportToBlocks(// don't worry about this
             heading = "call",
             comment = "Setting the Boolean to true reverses the encoder, false leaves it normal",
             parameterLabels = {"X Encoder Reversed?", "Y Encoder Reversed?"},
@@ -98,7 +98,8 @@ public class PinpointBlocks extends BlocksOpModeCompanion {
             color = PURPLE
     )
     public static void reverseEncoders(boolean xEncoder, boolean yEncoder) {
-        GoBildaPinpointDriver.EncoderDirection xEn = null;
+
+        GoBildaPinpointDriver.EncoderDirection xEn = null;// both will ways be set
         GoBildaPinpointDriver.EncoderDirection yEn = null;
 
         List<GoBildaPinpointDriver> pinpoints;
@@ -107,7 +108,7 @@ public class PinpointBlocks extends BlocksOpModeCompanion {
             GoBildaPinpointDriver odo = pinpoints.get(0);
             if (xEncoder) {
                 xEn = GoBildaPinpointDriver.EncoderDirection.REVERSED;
-            } else if (!xEncoder) {
+            } else if (!xEncoder)/* extra parnoid*/ {
                 xEn = GoBildaPinpointDriver.EncoderDirection.FORWARD;
             }
 
