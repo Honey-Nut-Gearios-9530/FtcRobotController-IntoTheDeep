@@ -13,20 +13,34 @@ import kotlin.math.abs
 // @Disabled
 class DriveTrain : BaseLinearOpMode() {
     // kotlin does not do numeric type promotion, if the 3rd arg is just "1" than T cannot be inferred
-    private var power = ToggleableState(2, 0.33, 0.67, 1.0)
+    //private var power = ToggleableState(2, 0.33, 0.67, 1.0)
     private lateinit var gp1: GamepadState
 
     override fun runOpMode() {/* Initialization */
         telemetry.msTransmissionInterval = 100
 
+        telemetry.addLine("test")
+        telemetry.update()
+
         gp1 = GamepadState(gamepad1)
 
+
+        /*
         val toggleButtonMap = mapOf(
             GamepadButton(gp1, Gamepad::left_bumper) to power::left,
             GamepadButton(gp1, Gamepad::right_bumper) to power::right
         )
+        */
 
-        this.initDriveTrain()
+
+
+
+        try {
+            this.initDriveTrain()
+        }catch (e: Exception){
+            telemetry.addLine("error caught")
+            telemetry.update()
+        }
 
         /* End Initialization */
         this.waitForStart()
@@ -34,32 +48,35 @@ class DriveTrain : BaseLinearOpMode() {
         while (this.opModeIsActive()) {
             this.gp1.cycle()
 
-            toggleButtonMap.forEach { it.key.ifIsToggled(it.value) }
+            //toggleButtonMap.forEach { it.key.ifIsToggled(it.value) }
 
             /* Calculates motor power in accordance with the allMotors array
                and formulas found here: https://github.com/brandon-gong/ftc-mecanum
              */
-            val turnPower = -this.gp1.current.right_trigger + this.gp1.current.left_trigger
 
-            val motorPower = arrayOf(
-                this.gp1.current.left_stick_x - this.gp1.current.left_stick_y - turnPower,
-                -this.gp1.current.left_stick_x - this.gp1.current.left_stick_y + turnPower,
-                -this.gp1.current.left_stick_x - this.gp1.current.left_stick_y - turnPower,
-                this.gp1.current.left_stick_x - this.gp1.current.left_stick_y + turnPower,
-            )
+                val turnPower = -this.gp1.current.right_trigger + this.gp1.current.left_trigger
 
-            // Magnitude of the maximum value, not velocity
-            val max = abs(motorPower.maxBy { abs(it) })
+                val motorPower = arrayOf(
+                    this.gp1.current.left_stick_x - this.gp1.current.left_stick_y - turnPower,
+                    -this.gp1.current.left_stick_x - this.gp1.current.left_stick_y + turnPower,
+                    -this.gp1.current.left_stick_x - this.gp1.current.left_stick_y - turnPower,
+                    this.gp1.current.left_stick_x - this.gp1.current.left_stick_y + turnPower,
+                )
 
-            // Normalize if greater the max is greater than 1
-            if (max > 1) motorPower.forEachIndexed { i, _ -> motorPower[i] /= max }
+                // Magnitude of the maximum value, not velocity
+                val max = abs(motorPower.maxBy { abs(it) })
 
-            // Update the motors with the proper power
-            this.allMotors.forEachIndexed { i, m ->
-                m.power = motorPower[i].toDouble() * power.value
-            }
+                // Normalize if greater the max is greater than 1
+                if (max > 1) motorPower.forEachIndexed { i, _ -> motorPower[i] /= max }
 
-            telemetry.update()
+                // Update the motors with the proper power
+
+                //this.allMotors.forEachIndexed { i, m ->
+                 //   m.power = motorPower[i].toDouble() * power.value
+               // }
+
+                telemetry.update()
+
         }
 
     }

@@ -14,10 +14,22 @@ abstract class BaseLinearOpMode : LinearOpMode() {
 
     protected fun initDriveTrain() {
         try {
-            this.leftBackMotor = this.hardwareMap.dcMotor["leftBack"]
-            this.rightBackMotor = this.hardwareMap.dcMotor["rightBack"]
-            this.rightFrontMotor = this.hardwareMap.dcMotor["rightFront"]
-            this.leftFrontMotor = this.hardwareMap.dcMotor["leftFront"]
+            try{
+                this.leftBackMotor = this.hardwareMap.dcMotor["leftBack"]
+                this.rightBackMotor = this.hardwareMap.dcMotor["rightBack"]
+                this.rightFrontMotor = this.hardwareMap.dcMotor["rightFront"]
+                this.leftFrontMotor = this.hardwareMap.dcMotor["leftFront"]
+                telemetry.addLine("using dated config")
+            }catch (e: Exception) {
+                this.leftBackMotor = this.hardwareMap.dcMotor["leftRear"]
+                this.rightBackMotor = this.hardwareMap.dcMotor["rightRear"]
+                this.rightFrontMotor = this.hardwareMap.dcMotor["rightFront"]
+                this.leftFrontMotor = this.hardwareMap.dcMotor["leftFront"]
+                telemetry.addLine("using new config")
+            }catch (e: Exception){
+                telemetry.addLine("I am the creeper, catch me if you can!")
+                telemetry.addData("ERROR: check motor config and change names in BaseLinearOpMode.kt", "Error")
+            }
 
             this.leftFrontMotor.direction = DcMotorSimple.Direction.REVERSE
             this.rightFrontMotor.direction = DcMotorSimple.Direction.FORWARD
