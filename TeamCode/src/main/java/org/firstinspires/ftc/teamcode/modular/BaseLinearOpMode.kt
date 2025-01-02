@@ -27,7 +27,7 @@ abstract class BaseLinearOpMode : LinearOpMode() {
                 this.leftFrontMotor = this.hardwareMap.dcMotor["leftFront"]
                 telemetry.addLine("using new config")
             }catch (e: Exception){
-                telemetry.addLine("I am the creeper, catch me if you can!")
+                telemetry.addLine("I am the creeper, catch me if you can ")
                 telemetry.addData("ERROR: check motor config and change names in BaseLinearOpMode.kt", "Error")
             }
 

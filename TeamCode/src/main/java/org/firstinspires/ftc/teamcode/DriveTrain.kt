@@ -13,7 +13,7 @@ import kotlin.math.abs
 // @Disabled
 class DriveTrain : BaseLinearOpMode() {
     // kotlin does not do numeric type promotion, if the 3rd arg is just "1" than T cannot be inferred
-    //private var power = ToggleableState(2, 0.33, 0.67, 1.0)
+    private var power = ToggleableState(2, 0.33, 0.67, 1.0)
     private lateinit var gp1: GamepadState
 
     override fun runOpMode() {/* Initialization */
@@ -25,15 +25,11 @@ class DriveTrain : BaseLinearOpMode() {
         gp1 = GamepadState(gamepad1)
 
 
-        /*
+
         val toggleButtonMap = mapOf(
             GamepadButton(gp1, Gamepad::left_bumper) to power::left,
             GamepadButton(gp1, Gamepad::right_bumper) to power::right
         )
-        */
-
-
-
 
         try {
             this.initDriveTrain()
@@ -48,7 +44,7 @@ class DriveTrain : BaseLinearOpMode() {
         while (this.opModeIsActive()) {
             this.gp1.cycle()
 
-            //toggleButtonMap.forEach { it.key.ifIsToggled(it.value) }
+            toggleButtonMap.forEach { it.key.ifIsToggled(it.value) }
 
             /* Calculates motor power in accordance with the allMotors array
                and formulas found here: https://github.com/brandon-gong/ftc-mecanum
@@ -71,9 +67,9 @@ class DriveTrain : BaseLinearOpMode() {
 
                 // Update the motors with the proper power
 
-                //this.allMotors.forEachIndexed { i, m ->
-                 //   m.power = motorPower[i].toDouble() * power.value
-               // }
+                this.allMotors.forEachIndexed { i, m ->
+                   m.power = motorPower[i].toDouble() * power.value
+               }
 
                 telemetry.update()
 
