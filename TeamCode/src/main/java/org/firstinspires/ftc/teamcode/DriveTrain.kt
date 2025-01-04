@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp
 import com.qualcomm.robotcore.hardware.Gamepad
 import org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.telemetry
+// important
 import org.firstinspires.ftc.teamcode.modular.BaseLinearOpMode
 import org.firstinspires.ftc.teamcode.modular.GamepadButton
 import org.firstinspires.ftc.teamcode.modular.GamepadState
@@ -15,6 +16,7 @@ class DriveTrain : BaseLinearOpMode() {
     // kotlin does not do numeric type promotion, if the 3rd arg is just "1" than T cannot be inferred
     private var power = ToggleableState(2, 0.33, 0.67, 1.0)
     private lateinit var gp1: GamepadState
+    private lateinit var gp2: GamepadState
 
     override fun runOpMode() {/* Initialization */
         telemetry.msTransmissionInterval = 100
@@ -23,6 +25,7 @@ class DriveTrain : BaseLinearOpMode() {
         telemetry.update()
 
         gp1 = GamepadState(gamepad1)
+        gp1 = GamepadState(gamepad2)
 
 
 
@@ -30,13 +33,8 @@ class DriveTrain : BaseLinearOpMode() {
             GamepadButton(gp1, Gamepad::left_bumper) to power::left,
             GamepadButton(gp1, Gamepad::right_bumper) to power::right
         )
-
-        try {
             this.initDriveTrain()
-        }catch (e: Exception){
-            telemetry.addLine("error caught")
-            telemetry.update()
-        }
+
 
         /* End Initialization */
         this.waitForStart()
