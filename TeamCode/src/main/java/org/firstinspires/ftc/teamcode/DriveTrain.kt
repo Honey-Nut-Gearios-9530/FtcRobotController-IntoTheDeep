@@ -54,8 +54,8 @@ class DriveTrain : BaseLinearOpMode() {
 
                 val motorPower = arrayOf(
                     this.gp1.current.left_stick_x - this.gp1.current.left_stick_y - turnPower,
-                    -this.gp1.current.left_stick_x - this.gp1.current.left_stick_y + turnPower,
-                    -this.gp1.current.left_stick_x - this.gp1.current.left_stick_y - turnPower,
+                    -this.gp1.current.left_stick_x + this.gp1.current.left_stick_y + turnPower,
+                    -this.gp1.current.left_stick_x + this.gp1.current.left_stick_y - turnPower,
                     this.gp1.current.left_stick_x - this.gp1.current.left_stick_y + turnPower,
                 )
 
