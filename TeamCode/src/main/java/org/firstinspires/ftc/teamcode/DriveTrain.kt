@@ -11,7 +11,8 @@ import org.firstinspires.ftc.teamcode.modular.ToggleableState
 @TeleOp(name = "DriveTrain")
 // @Disabled
 class DriveTrain : BaseLinearOpMode() {
-    private var power = ToggleableState(1.0, 0.25)
+    // kotlin does not do numeric type promotion, if the 3rd arg is just "1" than T cannot be inferred
+    private var power = ToggleableState(2, 0.33, 0.67, 1.0)
     private lateinit var gp1: GamepadState
 
     override fun runOpMode() {/* Initialization */
