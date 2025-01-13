@@ -17,8 +17,8 @@ abstract class BaseLinearOpMode : LinearOpMode() {
 
     protected fun initDriveTrain() {
         try {
-            this.leftBackMotor = this.hardwareMap.dcMotor["leftBack"]
-            this.rightBackMotor = this.hardwareMap.dcMotor["rightBack"]
+            this.leftBackMotor = this.hardwareMap.dcMotor["leftRear"]
+            this.rightBackMotor = this.hardwareMap.dcMotor["rightRear"]
             this.rightFrontMotor = this.hardwareMap.dcMotor["rightFront"]
             this.leftFrontMotor = this.hardwareMap.dcMotor["leftFront"]
 
@@ -30,8 +30,8 @@ abstract class BaseLinearOpMode : LinearOpMode() {
             this.allMotors = arrayOf(leftFrontMotor, rightFrontMotor, leftBackMotor, rightBackMotor)
 
             this.odometry = this.hardwareMap.get(GoBildaPinpointDriver::class.java, "odometry")
-            this.odometry.setOffsets(12.0, 6.0)
-            this.odometry.setEncoderResolution(74.5027025)
+            this.odometry.setOffsets(95.0, 0.0)
+            this.odometry.setEncoderResolution(37.25135125)
             this.odometry.setEncoderDirections(
                 GoBildaPinpointDriver.EncoderDirection.FORWARD,
                 GoBildaPinpointDriver.EncoderDirection.REVERSED

@@ -54,10 +54,10 @@ class DriveTrain : BaseLinearOpMode() {
             val turnPower = -this.gp1.current.right_trigger + this.gp1.current.left_trigger
 
             val motorPower = arrayOf(
-                this.gp1.current.left_stick_x - this.gp1.current.left_stick_y - turnPower,
-                -this.gp1.current.left_stick_x - this.gp1.current.left_stick_y + turnPower,
-                -this.gp1.current.left_stick_x - this.gp1.current.left_stick_y - turnPower,
-                this.gp1.current.left_stick_x - this.gp1.current.left_stick_y + turnPower,
+                this.gp1.current.left_stick_y - this.gp1.current.left_stick_x - turnPower,
+                this.gp1.current.left_stick_y - this.gp1.current.left_stick_x + turnPower,
+                this.gp1.current.left_stick_y + this.gp1.current.left_stick_x - turnPower,
+                this.gp1.current.left_stick_y + this.gp1.current.left_stick_x + turnPower,
             )
 
             // Magnitude of the maximum value, not velocity
