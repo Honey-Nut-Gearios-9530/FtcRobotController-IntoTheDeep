@@ -53,6 +53,7 @@ class ServoWrapper(
     fun waiting() = blockUntil > TimeSource.Monotonic.markNow()
 
     fun disablePwm() = servo.controller.pwmDisable()
+    fun enablePwm() = servo.controller.pwmEnable();
 
     val position: Double
         get() = servo.position

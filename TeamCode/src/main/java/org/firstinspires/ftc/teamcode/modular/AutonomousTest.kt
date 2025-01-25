@@ -7,6 +7,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit
 import org.firstinspires.ftc.robotcore.external.navigation.Pose2D
 import org.firstinspires.ftc.teamcode.GoBildaPinpointDriver
+import org.firstinspires.ftc.teamcode.bucketDumping
 import org.firstinspires.ftc.teamcode.bucketWaiting
 import kotlin.math.abs
 import kotlin.math.pow
@@ -38,7 +39,7 @@ class AutonomousTest : BaseLinearOpMode() {
         }
         // arm reaches top
         arm.power = 0.0
-        bucket.position = 0.0
+        bucket.position = bucketDumping
         // wait for element to drop
         sleep(2000)
 
@@ -55,8 +56,8 @@ class AutonomousTest : BaseLinearOpMode() {
         null
     }
     private val startLoad = Stage {
-        elevator.power = 0.65
-        spinner.on(true)
+        elevator.power = 0.75
+        spinner.on(1f)
         null
     }
     private val endLoad = Stage {
@@ -80,17 +81,17 @@ class AutonomousTest : BaseLinearOpMode() {
 
     private val stages = listOf(
         // score preload
-        run(-225),
+        run(-215),
         pivot(-40),
         score,
         // go to other
         turn(-47),
         startLoad,
-        run(800),
+        run(750),
         sleepStage(2000),
         endLoad,
 //        correct,
-        run(-800),
+        run(-750),
         turn(45),
         score,
         // ratchet is being silly

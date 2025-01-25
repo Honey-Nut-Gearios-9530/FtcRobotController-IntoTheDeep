@@ -74,6 +74,6 @@ abstract class BaseLinearOpMode : LinearOpMode() {
         this.bucket = this.hardwareMap["bucket"] as Servo
 
         this.switch = this.hardwareMap["touch_sensor"] as TouchSensor
-        println(this.switch)
+        this.hooks.enablePwm()
     }
 }
