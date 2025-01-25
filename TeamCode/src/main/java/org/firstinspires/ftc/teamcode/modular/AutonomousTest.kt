@@ -80,17 +80,17 @@ class AutonomousTest : BaseLinearOpMode() {
 
     private val stages = listOf(
         // score preload
-        run(-225),
+        run(-215),
         pivot(-40),
         score,
         // go to other
         turn(-47),
         startLoad,
-        run(800),
+        run(750),
         sleepStage(2000),
         endLoad,
 //        correct,
-        run(-800),
+        run(-750),
         turn(45),
         score,
         // ratchet is being silly
