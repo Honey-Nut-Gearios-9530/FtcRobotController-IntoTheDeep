@@ -7,6 +7,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit
 import org.firstinspires.ftc.robotcore.external.navigation.Pose2D
 import org.firstinspires.ftc.teamcode.GoBildaPinpointDriver
+import org.firstinspires.ftc.teamcode.bucketDumping
 import org.firstinspires.ftc.teamcode.bucketWaiting
 import kotlin.math.abs
 import kotlin.math.pow
@@ -38,7 +39,7 @@ class AutonomousTest : BaseLinearOpMode() {
         }
         // arm reaches top
         arm.power = 0.0
-        bucket.position = 0.0
+        bucket.position = bucketDumping
         // wait for element to drop
         sleep(2000)
 
