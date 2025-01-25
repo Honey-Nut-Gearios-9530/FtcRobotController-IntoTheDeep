@@ -56,7 +56,7 @@ class AutonomousTest : BaseLinearOpMode() {
         null
     }
     private val startLoad = Stage {
-        elevator.power = 0.65
+        elevator.power = 0.75
         spinner.on(1f)
         null
     }
