@@ -175,8 +175,8 @@ class TeleOp : BaseLinearOpMode() {
 
             // elevator and spinner
             val elevatorPower = gp2.current.left_stick_y.toDouble()
-            elevator.power = if (elevatorPower > 0) elevatorPower * 0.8 else elevatorPower
-            if (gp2.current.left_stick_y.sign != 0f) spinner.on(gp2.current.left_stick_y > 0) else spinner.off()
+            elevator.power = if (elevatorPower > 0) elevatorPower * 0.8 else elevatorPower * 0.5
+            if (gp2.current.left_stick_y.sign != 0f) spinner.on(gp2.current.left_stick_y) else spinner.off()
 
             lastSwitch = currSwitch
 
